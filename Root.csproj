@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\UnitBrains\Pathfinding\DebugPathOutput.cs" />
     <Compile Include="Assets\Scripts\Model\Config\Settings.cs" />
     <Compile Include="Assets\Scripts\Model\Config\UnitConfig.cs" />
+    <Compile Include="Assets\Scripts\UnitBrains\Player\BuffingUnitBrain.cs" />
     <Compile Include="Assets\Scripts\Utilities\PersistanceUtils.cs" />
     <Compile Include="Assets\Scripts\View\RootView.cs" />
     <Compile Include="Assets\Scripts\UnitBrains\Pathfinding\BaseUnitPath.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Assets\Scripts\Model\Runtime\Projectiles\ArchToTileProjectile.cs" />
     <Compile Include="Assets\Scripts\UnitBrains\Pathfinding\DummyUnitPath.cs" />
     <Compile Include="Assets\Scripts\Controller\RootController.cs" />
+    <Compile Include="Assets\Scripts\Model\EffectController.cs" />
     <Compile Include="Assets\Scripts\Model\Runtime\Unit.cs" />
     <Compile Include="Assets\Scripts\Model\IReadOnlyRuntimeModel.cs" />
     <Compile Include="Assets\Scripts\Model\Runtime\Projectiles\HorizontalLineProjectile.cs" />
