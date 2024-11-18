@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\UnitBrains\Pathfinding\DebugPathOutput.cs" />
     <Compile Include="Assets\Scripts\Model\Config\Settings.cs" />
     <Compile Include="Assets\Scripts\Model\Config\UnitConfig.cs" />
+    <Compile Include="Assets\Scripts\UnitBrains\Player\BuffingUnitBrain.cs" />
     <Compile Include="Assets\Scripts\Utilities\PersistanceUtils.cs" />
     <Compile Include="Assets\Scripts\View\RootView.cs" />
     <Compile Include="Assets\Scripts\UnitBrains\Pathfinding\BaseUnitPath.cs" />

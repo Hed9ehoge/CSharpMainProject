@@ -28,7 +28,6 @@ namespace Model.Runtime
         private float _nextBrainUpdateTime = 0f;
         private float _nextMoveTime = 0f;
         private float _nextAttackTime = 0f;
-        private bool _takeEffectOnce = true; //Эта строчка добовляет эффект в начале(потом удалить)
 
         public UnitsCoordinator Coordinator;
         public Unit(UnitConfig config, Vector2Int startPos, UnitsCoordinator _coordinator)
@@ -47,11 +46,6 @@ namespace Model.Runtime
         {
             if (IsDead)
                 return;
-            if (_takeEffectOnce) //Эта строчка добовляет эффект в начале(потом удалить)
-            {
-                _effects.AddEffect(this, EffectController.TypesOfEffects.DelayForNextMoveTimeEffect, 5, 5);
-                _takeEffectOnce=false;
-            }
             if (_nextBrainUpdateTime < time)
             {
                 _nextBrainUpdateTime = time + Config.BrainUpdateInterval;

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Utilities;
+using View;
 using static Model.EffectController;
 
 namespace Model
@@ -35,6 +36,7 @@ namespace Model
         {
             if (unit != null) 
             {
+                ServiceLocator.Get<VFXView>()?.PlayVFX(unit.Pos, VFXView.VFXType.BuffApplied);
                 if (DictionaryWithUnitsEffects.ContainsKey(unit))
                 {
                     DictionaryWithUnitsEffects[unit].AddEffect(unit, time, typesOfEffects, effectMultiplier);
