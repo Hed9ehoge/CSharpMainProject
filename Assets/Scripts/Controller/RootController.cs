@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Config;
+using Model.Effects;
 using UnityEngine;
 using Utilities;
 using View;
@@ -78,9 +79,9 @@ namespace Controller
             var prefab = Resources.Load<VFXView>("View/VFXView");
             return Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
         }
-        private EffectController SpawnEffectController() 
+        private _EffectController SpawnEffectController() 
         {
-            var prefab = Resources.Load<EffectController>("View/EffectController");
+            var prefab = Resources.Load<_EffectController>("View/EffectController");
             return Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
         }
     }

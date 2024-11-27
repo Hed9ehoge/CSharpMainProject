@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.Effects;
 using Model.Runtime;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace UnitBrains.Player
         }
         public void AddEffect()
         {
-            var effectController = ServiceLocator.Get<EffectController>();
+            var effectController = ServiceLocator.Get<_EffectController>();
 
             _freezingTimer = _freezingTime;
             CDForBuffingTimer = CDForBuffing;
@@ -40,7 +41,9 @@ namespace UnitBrains.Player
             foreach (var target in ListUnitsInRange()) 
             {
                 if (target.Config.Name == TargetUnitName) continue;
-                effectController.AddEffect((Unit)target, EffectController.TypesOfEffects.DelayForNextMoveTimeEffect, 0.5f, 1);
+                effectController.AddEffect((Unit)target, new DelayMoveSpeedEffect(), 1f, 3);
+                effectController.AddEffect((Unit)target, new RangeAttackEffect(), 2f, 3);
+                effectController.AddEffect((Unit)target, new AttackExtraShootCountEffect(), 3, 3);
             }
         }
         public override void Update(float deltaTime, float time)

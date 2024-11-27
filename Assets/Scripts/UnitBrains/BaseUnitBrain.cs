@@ -3,6 +3,7 @@ using System.Linq;
 using Assets.Scripts.Pathfinding;
 using Assets.Scripts.UnitBrains;
 using Model;
+using Model.Effects;
 using Model.Runtime.Projectiles;
 using Model.Runtime.ReadOnly;
 using UnitBrains.Pathfinding;
@@ -12,7 +13,7 @@ using Unit = Model.Runtime.Unit;
 
 namespace UnitBrains
 {
-    public abstract class BaseUnitBrain
+    public abstract class BaseUnitBrain 
     {
         public virtual string TargetUnitName => string.Empty;
         public virtual bool IsPlayerUnitBrain => true;
@@ -21,11 +22,11 @@ namespace UnitBrains
         protected Unit unit { get; private set; }
         protected IReadOnlyRuntimeModel runtimeModel => ServiceLocator.Get<IReadOnlyRuntimeModel>();
         private BaseUnitPath _activePath = null;
-        protected EffectController _buffController { get; private set; }
+        protected _EffectController _buffController { get; private set; }
 
         protected BaseUnitBrain()
         {
-            _buffController = ServiceLocator.Get<EffectController>();
+            _buffController = ServiceLocator.Get<_EffectController>();
         }
 
         private readonly Vector2[] _projectileShifts = new Vector2[]
@@ -125,7 +126,7 @@ namespace UnitBrains
 
         protected bool HasTargetsInRange()
         {
-            var attackRangeSqr = unit.Config.AttackRange * unit.Config.AttackRange;
+            var attackRangeSqr = unit.Config.AttackRange * unit.Config.AttackRange * unit._effectRangeMultiplier;
             foreach (var possibleTarget in GetAllTargets())
             {
                 var diff = possibleTarget - unit.Pos;
@@ -152,7 +153,7 @@ namespace UnitBrains
 
         protected bool IsTargetInRange(Vector2Int targetPos)
         {
-            var attackRangeSqr = unit.Config.AttackRange * unit.Config.AttackRange;
+            var attackRangeSqr = unit.Config.AttackRange * unit.Config.AttackRange * unit._effectRangeMultiplier;
             var diff = targetPos - unit.Pos;
             return diff.sqrMagnitude <= attackRangeSqr;
         }
@@ -160,7 +161,7 @@ namespace UnitBrains
         protected List<Vector2Int> GetReachableTargets()
         {
             var result = new List<Vector2Int>();
-            var attackRangeSqr = unit.Config.AttackRange * unit.Config.AttackRange;
+            var attackRangeSqr = unit.Config.AttackRange * unit.Config.AttackRange * unit._effectRangeMultiplier;
             foreach (var possibleTarget in GetAllTargets())
             {
                 if (!IsTargetInRange(possibleTarget))

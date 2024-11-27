@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.UnitBrains;
 using Model.Config;
+using Model.Effects;
 using Model.Runtime.Projectiles;
 using Model.Runtime.ReadOnly;
 using UnitBrains;
@@ -22,12 +23,16 @@ namespace Model.Runtime
 
         private readonly List<BaseProjectile> _pendingProjectiles = new();
         private IReadOnlyRuntimeModel _runtimeModel;
-        protected EffectController _effects;
         private BaseUnitBrain _brain;
 
         private float _nextBrainUpdateTime = 0f;
         private float _nextMoveTime = 0f;
         private float _nextAttackTime = 0f;
+        //Effects Stats
+        public float _effectMoveTimeMultiplier = 1;
+        public float _effectRangeMultiplier = 1;
+        public float _effectAttackTimeMultiplier = 1;
+        public float _effectExtraShootCount = 0;
 
         public UnitsCoordinator Coordinator;
         public Unit(UnitConfig config, Vector2Int startPos, UnitsCoordinator _coordinator)
@@ -39,7 +44,6 @@ namespace Model.Runtime
             _brain = UnitBrainProvider.GetBrain(config);
             _brain.SetUnit(this);
             _runtimeModel = ServiceLocator.Get<IReadOnlyRuntimeModel>();
-            _effects = ServiceLocator.Get<EffectController>();
         }
 
         public void Update(float deltaTime, float time)
@@ -54,13 +58,13 @@ namespace Model.Runtime
             
             if (_nextMoveTime < time)
             {
-                _nextMoveTime = time + Config.MoveDelay * _effects.FindEffectMultiplier(this, EffectController.TypesOfEffects.DelayForNextMoveTimeEffect);
+                _nextMoveTime = time + Config.MoveDelay * _effectMoveTimeMultiplier;
                 Move();
             }
             
             if (_nextAttackTime < time && Attack())
             {
-                _nextAttackTime = time + Config.AttackDelay * _effects.FindEffectMultiplier(this,EffectController.TypesOfEffects.DelayForNextAttackTimeEffect);
+                _nextAttackTime = time + Config.AttackDelay * _effectAttackTimeMultiplier;
             }
         }
         private bool Attack()

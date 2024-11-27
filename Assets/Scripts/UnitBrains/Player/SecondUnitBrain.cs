@@ -37,7 +37,7 @@ namespace UnitBrains.Player
             if (GetTemperature() < overheatTemperature) 
             {
                 IncreaseTemperature();
-                for (int i = 0; i != GetTemperature(); i++)
+                for (int i = 0; i != GetTemperature() + unit._effectExtraShootCount; i++)
                 {
                     var projectile = CreateProjectile(forTarget);
                     AddProjectileToList(projectile, intoList);

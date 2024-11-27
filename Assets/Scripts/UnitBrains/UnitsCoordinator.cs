@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.UIElements;
+using Model.Runtime;
 using Utilities;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
@@ -135,11 +135,11 @@ namespace Assets.Scripts.UnitBrains
             var DistanceBetweenUnitAndEnemyBase = Vector2.Distance(Unit, _runtimeModel.RoMap.Bases[!IsPlayerUnit?RuntimeModel.PlayerId: RuntimeModel.BotPlayerId]);
             return DistanceBetweenBase / 2 >= DistanceBetweenUnitAndEnemyBase;
         }
-        public bool DoPreferredStep(Model.Runtime.Unit YourUnit, Vector2Int TargetPos)
+        public bool DoPreferredStep(Unit YourUnit, Vector2Int TargetPos)
         {
-            float DistanceBetweenObjectForDoStap = YourUnit.Config.AttackRange * 2;
+            float DistanceBetweenObjectForDoStep = YourUnit.Config.AttackRange * 2;
             float distanceToTarget = Vector2Int.Distance(TargetPos, YourUnit.Pos);
-            return distanceToTarget <= DistanceBetweenObjectForDoStap;
+            return distanceToTarget <= DistanceBetweenObjectForDoStep;
         }
     }
 }
